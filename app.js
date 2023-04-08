@@ -26,7 +26,6 @@ app.get("/episodes/:id", async (req, res) => {
 
 	let fetchResponse = await fetch(url_episodios + "/" + id);
 	let parseJson = await fetchResponse.json();
-	console.log(parseJson);
 	if (Object.keys(parseJson).length === 0) {
 		res.status(404).json({ message: "Episodio no encontrado" });
 	} else {
@@ -47,7 +46,7 @@ app.get("/characters/:id", async (req, res) => {
 
 	let fetchResponse = await fetch(url_personajes + "/" + id);
 	let parseJson = await fetchResponse.json();
-	console.log(parseJson);
+
 	if (Object.keys(parseJson).length === 0) {
 		res.status(404).json({ message: "Personaje no encontrado" });
 	} else {
