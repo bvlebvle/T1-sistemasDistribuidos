@@ -1,8 +1,14 @@
 const express = require("express");
-const morgan = require("morgan");
+const responseTime = require("response-time");
+const axios = require("axios");
+const redis = require("redis");
+const client = redis.createClient({
+	host: 'localhost',
+	port: 6379
+});
+
 const app = express();
 
-app.use(morgan("dev"));
 app.use(express.json());
 
 const fetch = require("node-fetch");
@@ -15,8 +21,14 @@ let url_personajes = "https://api.sampleapis.com/simpsons/characters";
 
 //trae todos los episidios
 app.get("/episodes", async (req, res) => {
-	let fetchResponse = await fetch(url_episodios);
-	let parseJson = await fetchResponse.json();
+	let fetchResponse = await axios.get(url_episodios);
+	client.set("episodes", JSON.stringify(fetchResponse.data),(err, reply) => {
+		if (err) {
+			console.log(err);
+		}
+		console.log(reply);
+	});
+
 	res.json(parseJson);
 });
 
