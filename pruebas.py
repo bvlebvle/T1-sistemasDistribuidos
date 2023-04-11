@@ -13,23 +13,14 @@ episodios_id = []
 characters_id = []
 peticiones = []
 
-for i in range(1, 2000):
+for i in range(1, 220):
     # consultas cada 5 ms
     peticiones.append(i)
-    id = random.randint(1, 300)
-    # url_episodios = "http://localhost:3000/episodes/" + str(id)
-    id = random.randint(1, 300)
+    id = i % 30 + 1
     url_characters = "http://localhost:4000/characters/" + str(id)
-    # res_episodios = requests.get(url_episodios)
-    # episodios_id.append(res_episodios.elapsed.total_seconds() * 1000)
     res_characters = requests.get(url_characters)
     characters_id.append(res_characters.elapsed.total_seconds() * 1000)
     print(id, " ", res_characters.elapsed.total_seconds() * 1000)
-    # if id % 8 == 0:
-    #    res_all_episodes = requests.get("http://localhost:4000/episodes")
-
-    # if id % 8 == 1:
-    #    res_all_characters = requests.get("http://localhost:4000/characters")
 
     time.sleep(0.005)
     # print(url_episodios)
