@@ -11,16 +11,16 @@ app.use(express.json());
 const fetch = require("node-fetch");
 
 const client = redis.createClient({
-	host: "172.17.0.2",
+	host: "localhost",
 	port: 6379
 });
 const client2 = redis.createClient({
-	host: "172.17.0.4",
-	port: 6379
+	host: "localhost",
+	port: 6380
 });
 const client3 = redis.createClient({
-	host: "172.17.0.3",
-	port: 6379
+	host: "localhost",
+	port: 6381
 });
 
 //funcion
