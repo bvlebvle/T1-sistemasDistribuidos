@@ -1,40 +1,38 @@
 import requests
 import time
 import random
-
-# import matplotlib.pyplot as plt
-# import numpy as np
+import matplotlib
+from matplotlib import pyplot as plt
+import numpy as np
 
 
 print("Prueba de la API")
 
 # arreglo para guardar tiempos de respuesta
-episodios_id = []
 characters_id = []
 peticiones = []
 
-for i in range(1, 220):
+for i in range(1, 200):
     # consultas cada 5 ms
+    id = random.randint(1, 226)
     peticiones.append(i)
-    id = i % 30 + 1
-    url_characters = "http://localhost:4000/characters/" + str(id)
+    url_characters = "http://localhost:4000/characters/" + str(i)
     res_characters = requests.get(url_characters)
     characters_id.append(res_characters.elapsed.total_seconds() * 1000)
+
     print(id, " ", res_characters.elapsed.total_seconds() * 1000)
 
-    time.sleep(0.005)
+    time.sleep(0.001)
     # print(url_episodios)
 
 
-# fig, ax = plt.subplots()
-# Colocamos una etiqueta en el eje Y
-# ax.set_ylabel("Número de peticiones")
-# Colocamos una etiqueta en el eje X
-# ax.set_title("Tiempo de respuesta")
-# Creamos la grafica de barras utilizando 'paises' como eje X y 'ventas' como eje y.
-# plt.bar(peticiones, episodios_id)
-# plt.savefig("barras_simple.png")
-# Finalmente mostramos la grafica con el metodo show()
-# plt.show()
+x = peticiones
+y = characters_id
+
+plt.plot(x, y)
+plt.xlabel("ID de petición")
+plt.ylabel("Tiempo de respuesta (ms)")
+plt.title("Tiempo de respuesta por petición")
+plt.show()
 
 print("Fin de la prueba")
