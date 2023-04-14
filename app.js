@@ -78,7 +78,6 @@ app.get("/characters/:id", async (req, res) => {
 	console.log(server);
 	console.log(personaje_id);
 
-	// eleccion de cache según cifrado anterior
 	if (server == 0) {
 		//buscar primero en caché
 		client.get(personaje_id, async (err, reply) => {
@@ -92,7 +91,7 @@ app.get("/characters/:id", async (req, res) => {
 			let fetchResponse = await fetch(url_personajes + "/" + id);
 			let parseJson = await fetchResponse.json();
 
-			//guardar en cache con ttl
+			//guardar en cache
 			client.set(personaje_id, JSON.stringify(parseJson), (err, reply) => {
 				if (err) {
 					console.log(err);
